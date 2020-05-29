@@ -1,0 +1,32 @@
+// 200.  Number of Islands (medium)
+
+func numIslands(grid [][]byte) int {
+	if grid == nil || len(grid) == 0 {
+		return 0
+	}
+	num_islands := 0
+	nr := len(grid)
+	nc := len(grid[0])
+	for row := 0; row < nr; row++ {
+		for col := 0; col < nc; col++ {
+			if grid[row][col] == '1' {
+				num_islands++
+				dfs(grid, row, col)
+			}
+		}
+	}
+	return num_islands
+}
+
+func dfs(grid [][]byte, row int, col int) {
+	nr := len(grid)
+	nc := len(grid[0])
+	if row < 0 || col < 0 || row >= nr || col >= nc || grid[row][col] == '0' {
+		return
+	}
+	grid[row][col] = '0'
+	dfs(grid, row-1, col)
+	dfs(grid, row+1, col)
+	dfs(grid, row, col-1)
+	dfs(grid, row, col+1)
+}
