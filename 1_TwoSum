@@ -1,0 +1,14 @@
+// 1. Two Sum (Easy)
+package twoSum
+
+func twoSum(nums []int, target int) []int {
+	num_map := make(map[int]int)
+	for i := 0; i < len(nums); i++ {
+		diff := target - nums[i]
+		if val, ok := num_map[diff]; ok {
+			return []int{i, val}
+		}
+		num_map[nums[i]] = i
+	}
+	return []int{}
+}
