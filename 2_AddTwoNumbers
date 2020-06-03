@@ -1,0 +1,39 @@
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	p := l1
+	q := l2
+	dummyHead := &ListNode{} // head pointer for result
+	curr := dummyHead        // pointer to the current digit that will move
+	carry := 0
+	for p != nil || q != nil {
+		var x, y int
+		if p != nil {
+			x = p.Val
+		} else {
+			x = 0
+		} // current digit of number
+		if q != nil {
+			y = q.Val
+		} else {
+			y = 0
+		}
+		sum := carry + x + y                 // sum of the two numbers from l1 and l2
+		carry = sum / 10                     // get the current carry from sum
+		curr.Next = &ListNode{sum % 10, nil} // curr.next is the unit of sum
+		curr = curr.Next                     // move the pointer
+		if p != nil {
+			p = p.Next
+		}
+		if q != nil {
+			q = q.Next
+		}
+	}
+	if carry > 0 {
+		curr.Next = &ListNode{carry, nil}
+	}
+	return dummyHead.Next
+}
