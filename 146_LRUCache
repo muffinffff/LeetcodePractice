@@ -1,16 +1,16 @@
 type LRUCache struct {
-	head  *node
-	tail  *node
-	store map[int]*node
-	c     int
+	head     *node // use LinkedList to demonstrate LRU (least recently used node at tail)
+	tail     *node
+	store    map[int]*node // to store and acquire the nodes in cache
+	capacity int
 }
 
 // bidirectional node structrue which ha
 type node struct {
 	pre  *node
 	next *node
-	k    int
-	v    int
+	key  int
+	val  int
 }
 
 func Constructor(capacity int) LRUCache {

@@ -23,8 +23,8 @@ func main() {
 	// c.Age = 30
 	// fmt.Println(pa)
 	// b := Student{"Bob", 20}
-	name := "hi"
-	age := 99
-	v := Student{Name: name, Age: age}
-	fmt.Println(v)
+	var arr []int
+	// arr[0] = 0
+	fmt.Println(arr)
+
 }
