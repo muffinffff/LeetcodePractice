@@ -1,0 +1,40 @@
+import (
+	"sort"
+	"strings"
+)
+
+func reorderLogFiles(logs []string) []string {
+	if len(logs) < 2 {
+		return logs
+	}
+
+	// 1. separate the letter logs from the number logs
+	// by confirming if the first letter after identifier is letter (>= 'a' && <= 'z') or number
+	var sortedStrLogs []string
+	var sortedNumLogs []string
+	for _, log := range logs {
+		i := strings.Index(log, " ") // find the index of first log (after the space)
+		if log[i+1] >= 'a' && log[i+1] <= 'z' {
+			sortedStrLogs = append(sortedStrLogs, log)
+		} else {
+			sortedNumLogs = append(sortedNumLogs, log)
+		}
+	}
+
+	sort.Slice(sortedStrLogs, func(i, j int) bool {
+		iIndex := strings.Index(sortedStrLogs[i], " ")
+		jIndex := strings.Index(sortedStrLogs[j], " ")
+
+		iLog := sortedStrLogs[i][iIndex+1:]
+		jLog := sortedStrLogs[j][jIndex+1:]
+
+		// same logs, use identifier to compare
+		if iLog == jLog {
+			return sortedStrLogs[i] < sortedStrLogs[j]
+		}
+		return iLog < jLog
+	})
+	// concat numLogs after strLogs
+	sortedStrLogs = append(sortedStrLogs, sortedNumLogs...)
+	return sortedStrLogs
+}
